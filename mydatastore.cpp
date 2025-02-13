@@ -1,0 +1,76 @@
+//
+// Created by 李文迪 on 2/13/25.
+//
+
+#include "mydatastore.h"
+#include "util.h"
+#include <vector>
+#include <map>
+using namespace std;
+
+MyDataStore::MyDataStore()
+{
+
+}
+
+MyDataStore::~MyDataStore()
+{
+
+}
+
+void MyDataStore::addProduct(Product *product)
+{
+    products_.push_back(product);
+}
+
+void MyDataStore::addUser(User *user)
+{
+    users_.push_back(user);
+}
+
+vector<Product*> MyDataStore::search(vector<string>& terms, int type)
+{
+    set<Product*> valid_products;
+    map<string, set<Product*> > keywords_map;
+    for(vector<Product*>::iterator it = products_.begin(); it != products_.end(); ++it)
+    {
+        set<string> key = (*it) -> keywords();
+        for(set<string>::iterator it2 = key.begin(); it2 != key.end(); ++it2)
+            keywords_map[*it2].insert(*it);
+    }
+    if(type == 0)
+    {
+        valid_products = keywords_map[terms[0]];
+        for(int i = 1;i < terms.size(); i++)
+        {
+          if(keywords_map.find(terms[i]) == keywords_map.end())
+          {
+            valid_products.clear();
+            continue;
+          }
+          valid_products = setIntersection(valid_products, keywords_map[terms[i]]);
+        }
+    }
+    if(type == 1)
+        for(int i = 0;i < terms.size(); i++)
+        {
+          if(keywords_map.find(terms[i]) == keywords_map.end())
+            continue;
+          valid_products = setUnion(valid_products, keywords_map[terms[i]]);
+        }
+    vector<Product*> result;
+    for(set<Product*>::iterator it = valid_products.begin(); it != valid_products.end(); ++it)
+      result.push_back((*it));
+    return result;
+}
+
+void MyDataStore::dump(ostream& ofile)
+{
+    ofile << "<products>" << endl;
+    for(vector<Product*>::iterator it = products_.begin(); it != products_.end(); ++it)
+      (*it) -> dump(ofile);
+    ofile << "</products>" << endl;
+    ofile << "<users>" << endl;
+    for(vector<User*>::iterator it = users_.begin(); it != users_.end(); ++it)
+      (*it) -> dump(ofile);
+}

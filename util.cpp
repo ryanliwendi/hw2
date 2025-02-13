@@ -25,7 +25,7 @@ std::set<std::string> parseStringToWords(string rawWords)
         while (end < rawWords.size() && !((rawWords[end] >= ' ' && rawWords[end] <= '/') || (rawWords[end] >= ':' && rawWords[end] <= '@')))
             end++;
         if (end - curidx > 1)
-            words.insert(rawWords.substr(curidx, end - curidx));
+            words.insert(convToLower(rawWords.substr(curidx, end - curidx)));
         curidx = end + 1;
     }
     return words;
