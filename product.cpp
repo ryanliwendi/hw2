@@ -18,7 +18,6 @@ Product::~Product()
 
 }
 
-
 double Product::getPrice() const
 {
     return price_;
