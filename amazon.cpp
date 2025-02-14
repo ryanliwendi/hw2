@@ -100,9 +100,44 @@ int main(int argc, char* argv[])
                 }
                 done = true;
             }
-	    /* Add support for other commands here */
-
-
+	        /* Add support for other commands here */
+            else if ( cmd == "ADD" ) {
+                string username;
+                int hit_result_index;
+                try
+                {
+                    ss >> username >> hit_result_index;
+                }
+                catch (...)
+                {
+                    cout << "Invalid request" << endl;
+                    continue;
+                }
+                username = convToLower(username);
+                ds.addToCart(username, hits[hit_result_index]);
+            }
+            else if ( cmd == "VIEWCART" ){
+                string username;
+                ss >> username;
+                username = convToLower(username);
+                if (!ds.inCart(username))
+                {
+                    cout << "Invalid username" << endl;
+                    continue;
+                }
+                ds.printCart(username);
+            }
+            else if ( cmd == "BUYCART" ){
+                string username;
+                ss >> username;
+                username = convToLower(username);
+                if (!ds.inCart(username))
+                {
+                    cout << "Invalid username" << endl;
+                    continue;
+                }
+                ds.buyCart(username);
+            }
 
 
             else {

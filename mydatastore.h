@@ -7,6 +7,8 @@
 
 #include "datastore.h"
 #include <vector>
+#include <map>
+#include <string>
 
 class MyDataStore : public DataStore
 {
@@ -17,10 +19,15 @@ class MyDataStore : public DataStore
     void addUser(User* u);
     std::vector<Product*> search(std::vector<std::string>& terms, int type);
     void dump(std::ostream& ofile);
+    void addToCart(std::string username, Product* product);
+    bool inCart(std::string username);
+    void printCart(std::string username);
+    void buyCart(std::string username);
 
    private:
-     std::vector<Product*> products_;
-     std::vector<User*> users_;
+    std::vector<Product*> products_;
+    std::vector<User*> users_;
+    std::map<std::string, std::vector<Product*> > cart_;
 };
 
 #endif //MYDATASTORE_H

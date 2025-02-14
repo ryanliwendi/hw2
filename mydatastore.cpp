@@ -74,3 +74,29 @@ void MyDataStore::dump(ostream& ofile)
     for(vector<User*>::iterator it = users_.begin(); it != users_.end(); ++it)
       (*it) -> dump(ofile);
 }
+
+void MyDataStore::addToCart(string username, Product *product)
+{
+  	cart_[username].push_back(product);
+}
+
+bool MyDataStore::inCart(string username)
+{
+  	return cart_.find(username) != cart_.end();
+}
+
+void MyDataStore::printCart(string username)
+{
+  	int id = 0;
+  	for(vector<Product*>::iterator it = cart_[username].begin(); it != cart_[username].end(); ++it)
+    {
+        id++;
+        cout << id << ": ";
+        cout << (*it) -> displayString() << endl;
+    }
+}
+
+void MyDataStore::buyCart(string username)
+{
+
+}
