@@ -80,9 +80,13 @@ void MyDataStore::addToCart(string username, Product *product)
   	cart_[username].push_back(product);
 }
 
-bool MyDataStore::inCart(string username)
+bool MyDataStore::validUsername(string username)
 {
-  	return cart_.find(username) != cart_.end();
+  	bool flag = false;
+    for(vector<User*>::iterator it = users_.begin(); it != users_.end(); ++it)
+      if(username == (*it) -> getName())
+        flag = true;
+  	return flag;
 }
 
 void MyDataStore::printCart(string username)
@@ -98,5 +102,18 @@ void MyDataStore::printCart(string username)
 
 void MyDataStore::buyCart(string username)
 {
-
+    int user_idx = 0;
+    for(int i = 0; i < users_.size(); i++)
+      if(users_[i] -> getName() == username)
+      	user_idx = i;
+	for(int i = 0; i < cart_[username].size(); i++)
+    {
+       if(cart_[username][i] -> getQty() >= 1 && users_[user_idx] -> getBalance() >= cart_[username][i] -> getPrice())
+       {
+         cart_[username][i] -> subtractQty(1);
+         users_[user_idx] -> deductAmount(cart_[username][i] -> getPrice());
+         cart_[username].erase(cart_[username].begin() + i);
+         i--;
+       }
+    }
 }

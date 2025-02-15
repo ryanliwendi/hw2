@@ -120,7 +120,7 @@ int main(int argc, char* argv[])
                 string username;
                 ss >> username;
                 username = convToLower(username);
-                if (!ds.inCart(username))
+                if (!ds.validUsername(username))
                 {
                     cout << "Invalid username" << endl;
                     continue;
@@ -131,15 +131,13 @@ int main(int argc, char* argv[])
                 string username;
                 ss >> username;
                 username = convToLower(username);
-                if (!ds.inCart(username))
+                if (!ds.validUsername(username))
                 {
                     cout << "Invalid username" << endl;
                     continue;
                 }
                 ds.buyCart(username);
             }
-
-
             else {
                 cout << "Unknown command" << endl;
             }
