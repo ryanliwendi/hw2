@@ -19,10 +19,10 @@ std::set<std::string> parseStringToWords(string rawWords)
     set<string> words;
     while (pos < rawWords.size())
     {
-        while (pos < rawWords.size() && ((rawWords[pos] >= ' ' && rawWords[pos] <= '/') || (rawWords[pos] >= ':' && rawWords[pos] <= '@')))
+        while (pos < rawWords.size() && !isalpha(rawWords[pos]))
             pos++;
         int end = pos;
-        while (end < rawWords.size() && !((rawWords[end] >= ' ' && rawWords[end] <= '/') || (rawWords[end] >= ':' && rawWords[end] <= '@')))
+        while (end < rawWords.size() && isalpha(rawWords[end]))
             end++;
         if (end - pos > 1)
             words.insert(convToLower(rawWords.substr(pos, end - pos)));
