@@ -6,6 +6,8 @@
 #define MYDATASTORE_H
 
 #include "datastore.h"
+#include "user.h"
+#include "product.h"
 #include <vector>
 #include <map>
 #include <string>

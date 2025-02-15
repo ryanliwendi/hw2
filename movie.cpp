@@ -22,7 +22,8 @@ set<string> Movie::keywords() const
 {
     set<string> keywords;
     set<string> product_name = parseStringToWords(name_);
-    keywords.insert(genre_);
+    keywords = product_name;
+    keywords.insert(convToLower(genre_));
     return keywords;
 }
 
@@ -32,7 +33,7 @@ string Movie::displayString() const
     ss << name_ << "\n";
     ss << "Genre: " << genre_ << " ";
     ss << "Rating: " << rating_ << "\n";
-    ss << price_ << " " << qty_ << " left." << "\n";
+    ss << price_ << " " << qty_ << " left.";
     return ss.str();
 }
 

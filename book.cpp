@@ -23,7 +23,7 @@ set<string> Book::keywords() const
     set<string> keywords;
     set<string> product_name = parseStringToWords(name_);
     set<string> author_name = parseStringToWords(author_);
-    keywords = setIntersection(product_name, author_name);
+    keywords = setUnion(product_name, author_name);
     keywords.insert(ISBN_);
     return keywords;
 }
@@ -34,7 +34,7 @@ string Book::displayString() const
    ss << name_ << "\n";
    ss << "Author: " << author_ << " ";
    ss << "ISBN: " << ISBN_ << "\n";
-   ss << price_ << " " << qty_ << " left." << "\n";
+   ss << price_ << " " << qty_ << " left.";
    return ss.str();
 }
 

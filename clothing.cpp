@@ -23,7 +23,7 @@ set<string> Clothing::keywords() const
     set<string> keywords;
     set<string> product_name = parseStringToWords(name_);
     set<string> brand_name = parseStringToWords(brand_);
-    keywords = setIntersection(product_name, brand_name);
+    keywords = setUnion(product_name, brand_name);
     return keywords;
 }
 
@@ -33,7 +33,7 @@ string Clothing::displayString() const
     ss << name_ << "\n";
     ss << "Size: " << size_ << " ";
     ss << "Brand: " << brand_ << "\n";
-    ss << price_ << " " << qty_ << " left." << "\n";
+    ss << price_ << " " << qty_ << " left.";
     return ss.str();
 }
 

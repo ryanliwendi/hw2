@@ -104,11 +104,9 @@ int main(int argc, char* argv[])
             else if ( cmd == "ADD" ) {
                 string username;
                 int hit_result_index;
-                try
-                {
-                    ss >> username >> hit_result_index;
-                }
-                catch (...)
+                ss >> username >> hit_result_index;
+                hit_result_index -= 1;
+                if (ss.fail() || hit_result_index < 0 || hit_result_index >= hits.size())
                 {
                     cout << "Invalid request" << endl;
                     continue;
