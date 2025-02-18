@@ -17,7 +17,10 @@ MyDataStore::MyDataStore()
 
 MyDataStore::~MyDataStore()
 {
-
+	for(int i = 0; i < products_.size(); i++)
+        delete products_[i];
+    for(int i = 0; i < users_.size(); i++)
+        delete users_[i];
 }
 
 void MyDataStore::addProduct(Product *product)
@@ -80,7 +83,11 @@ void MyDataStore::dump(ostream& ofile)
 
 void MyDataStore::addToCart(string username, Product *product)
 {
-    username = convToLower(username);
+    if(!validUsername(username))
+    {
+        cout << "Invalid request" << endl;
+        return;
+    }
   	cart_[username].push_back(product);
 }
 
