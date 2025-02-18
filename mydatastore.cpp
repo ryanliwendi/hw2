@@ -105,7 +105,7 @@ void MyDataStore::printCart(string username)
   	for(vector<Product*>::iterator it = cart_[username].begin(); it != cart_[username].end(); ++it)
     {
         id++;
-        cout << id << ": ";
+        cout << "Item " << id << endl;
         cout << (*it) -> displayString() << endl;
     }
 }
